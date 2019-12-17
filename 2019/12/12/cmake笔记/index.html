@@ -7,14 +7,14 @@
   
   <title>cmake笔记 | </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.  设置构建本地库所需的最小版本的cbuild。cmake_minimum_required(VERSION 3.4.1)2. 创建并命名一个库，将其设置为静态或共享库，并提供其源代码的相对路径。您可以定义多个库，而cbuild为您构建它们。Gradle自动将共享库与你的APK打包。add_library(             hello-lib">
+  <meta name="description" content="CMake简单介绍1. 什么是CMake？CMake是一个跨平台的C&#x2F;C++构建工具。2. C&#x2F;C++都有哪些构建工具，CMake和其他工具相比有哪些优缺点？C&#x2F;C++的常用构建工具有：shell编译、make、nmake、cmake等      a. shell： 在Linux下用shell命令调用gcc&#x2F;g++完成C&#x2F;C++的编译。             优点：简单    缺点：工程大非常的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cmake笔记">
 <meta property="og:url" content="https:&#x2F;&#x2F;antizhl.github.io&#x2F;2019&#x2F;12&#x2F;12&#x2F;cmake%E7%AC%94%E8%AE%B0&#x2F;index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="1.  设置构建本地库所需的最小版本的cbuild。cmake_minimum_required(VERSION 3.4.1)2. 创建并命名一个库，将其设置为静态或共享库，并提供其源代码的相对路径。您可以定义多个库，而cbuild为您构建它们。Gradle自动将共享库与你的APK打包。add_library(             hello-lib">
+<meta property="og:description" content="CMake简单介绍1. 什么是CMake？CMake是一个跨平台的C&#x2F;C++构建工具。2. C&#x2F;C++都有哪些构建工具，CMake和其他工具相比有哪些优缺点？C&#x2F;C++的常用构建工具有：shell编译、make、nmake、cmake等      a. shell： 在Linux下用shell命令调用gcc&#x2F;g++完成C&#x2F;C++的编译。             优点：简单    缺点：工程大非常的">
 <meta property="article:published_time" content="2019-12-12T09:55:02.000Z">
-<meta property="article:modified_time" content="2019-12-12T11:25:06.094Z">
+<meta property="article:modified_time" content="2019-12-17T07:39:59.543Z">
 <meta property="article:author" content="Ant蚂蚁">
 <meta property="article:tag" content="蚂蚁 Ant 移动安全 C C++ 安全保护 ndk 数据结构 编译">
 <meta name="twitter:card" content="summary">
@@ -90,7 +90,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h6 id="1-设置构建本地库所需的最小版本的cbuild。"><a href="#1-设置构建本地库所需的最小版本的cbuild。" class="headerlink" title="1.  设置构建本地库所需的最小版本的cbuild。"></a>1.  设置构建本地库所需的最小版本的cbuild。</h6><pre><code>cmake_minimum_required(VERSION 3.4.1)</code></pre><h6 id="2-创建并命名一个库，将其设置为静态或共享库，并提供其源代码的相对路径。您可以定义多个库，而cbuild为您构建它们。Gradle自动将共享库与你的APK打包。"><a href="#2-创建并命名一个库，将其设置为静态或共享库，并提供其源代码的相对路径。您可以定义多个库，而cbuild为您构建它们。Gradle自动将共享库与你的APK打包。" class="headerlink" title="2. 创建并命名一个库，将其设置为静态或共享库，并提供其源代码的相对路径。您可以定义多个库，而cbuild为您构建它们。Gradle自动将共享库与你的APK打包。"></a>2. 创建并命名一个库，将其设置为静态或共享库，并提供其源代码的相对路径。您可以定义多个库，而cbuild为您构建它们。Gradle自动将共享库与你的APK打包。</h6><pre><code>add_library(
+        <h5 id="CMake简单介绍"><a href="#CMake简单介绍" class="headerlink" title="CMake简单介绍"></a>CMake简单介绍</h5><h6 id="1-什么是CMake？"><a href="#1-什么是CMake？" class="headerlink" title="1. 什么是CMake？"></a>1. 什么是CMake？</h6><pre><code>CMake是一个跨平台的C/C++构建工具。</code></pre><h6 id="2-C-C-都有哪些构建工具，CMake和其他工具相比有哪些优缺点？"><a href="#2-C-C-都有哪些构建工具，CMake和其他工具相比有哪些优缺点？" class="headerlink" title="2. C/C++都有哪些构建工具，CMake和其他工具相比有哪些优缺点？"></a>2. C/C++都有哪些构建工具，CMake和其他工具相比有哪些优缺点？</h6><pre><code>C/C++的常用构建工具有：shell编译、make、nmake、cmake等
+
+    a. shell： 在Linux下用shell命令调用gcc/g++完成C/C++的编译。    
+        优点：简单    缺点：工程大非常的麻烦。适应：linux的C/C++入门开发或者小功能开发
+
+    b. make： 自定义Makefile文件来完成C/C++的编译。    
+        优点：简单、扩展性好，可以自定义任务和标签。    缺点：写大项目还是很麻烦。适应：常规C/C++项目
+
+    c. nmake： make在Windows上的应用，最终会自动生成Makefile。Visual Studio内嵌的就是nmake。    
+        优点：VS工具自动生成。    缺点：不能定制。    适应：Windows C/C++开发
+
+    d. cmake: CMake本质上也是生成Makefile，相比make最大的特点是跨平台，可以以自定义任务。    
+        优点：跨平台、扩展好、构建大项目方便、语句简单。适应：大小项目都可以
+
+    e. Android.mk:    Android C/C++工具工具，本质也是Makefile。
+        优点：简单    缺点：仅仅支持Android C/C++开发。适应：android ndk 开发</code></pre><h6 id="3-为什么Android-studio采用CMake？"><a href="#3-为什么Android-studio采用CMake？" class="headerlink" title="3. 为什么Android studio采用CMake？"></a>3. 为什么Android studio采用CMake？</h6><pre><code>cmake的优点脚本写起来简单，跨平台，生成Makefile功能强大。但android studio为什么不沿用Android.mk呢？
+个人实践经验来说在写这两个脚本的时候，能很明显的感觉出来，CMake写起来比Android.mk简单。特别适合入门级配置，
+还有一个原因是android 开发中多数是用java开发，c/c++代码用的少，所以对AS的想法来说，越简单越好。
+Android Studio利用CMake生成的是ninja，ninja是一个小型的关注速度的构建系统。
+Android.mk是ndk能够直接识别的Makefile文件。</code></pre><hr>
+<h5 id="简单的CMake构建步骤"><a href="#简单的CMake构建步骤" class="headerlink" title="简单的CMake构建步骤"></a>简单的CMake构建步骤</h5><h6 id="1-设置构建本地库所需的最小版本的cbuild。"><a href="#1-设置构建本地库所需的最小版本的cbuild。" class="headerlink" title="1.  设置构建本地库所需的最小版本的cbuild。"></a>1.  设置构建本地库所需的最小版本的cbuild。</h6><pre><code>cmake_minimum_required(VERSION 3.4.1)</code></pre><h6 id="2-创建并命名一个库，将其设置为静态或共享库，并提供其源代码的相对路径。您可以定义多个库，而cbuild为您构建它们。Gradle自动将共享库与你的APK打包。"><a href="#2-创建并命名一个库，将其设置为静态或共享库，并提供其源代码的相对路径。您可以定义多个库，而cbuild为您构建它们。Gradle自动将共享库与你的APK打包。" class="headerlink" title="2. 创建并命名一个库，将其设置为静态或共享库，并提供其源代码的相对路径。您可以定义多个库，而cbuild为您构建它们。Gradle自动将共享库与你的APK打包。"></a>2. 创建并命名一个库，将其设置为静态或共享库，并提供其源代码的相对路径。您可以定义多个库，而cbuild为您构建它们。Gradle自动将共享库与你的APK打包。</h6><pre><code>add_library(
             hello-lib                          # 设置库的名称。
             SHARED                          # 将库设置为共享库。
             src/main/jni/hello.cpp            # 提供一个源文件的相对路径
@@ -105,16 +125,17 @@ add_executable(
 )</code></pre><h6 id="3-搜索指定的预构建库，并将该路径存储为一个变量。因为cbuild默认包含了搜索路径中的系统库，所以您只需要指定您想要添加的公共NDK库的名称。cbuild在完成构建之前验证这个库是否存在。"><a href="#3-搜索指定的预构建库，并将该路径存储为一个变量。因为cbuild默认包含了搜索路径中的系统库，所以您只需要指定您想要添加的公共NDK库的名称。cbuild在完成构建之前验证这个库是否存在。" class="headerlink" title="3. 搜索指定的预构建库，并将该路径存储为一个变量。因为cbuild默认包含了搜索路径中的系统库，所以您只需要指定您想要添加的公共NDK库的名称。cbuild在完成构建之前验证这个库是否存在。"></a>3. 搜索指定的预构建库，并将该路径存储为一个变量。因为cbuild默认包含了搜索路径中的系统库，所以您只需要指定您想要添加的公共NDK库的名称。cbuild在完成构建之前验证这个库是否存在。</h6><pre><code>find_library(
         log-lib                          # 设置path变量的名称。
         log                               # 指定NDK库的名称 你想让CMake来定位。
-)</code></pre><h6 id="4-指定库的库应该链接到你的目标库。您可以链接多个库，比如在这个构建脚本中定义的库、预构建的第三方库或系统库。"><a href="#4-指定库的库应该链接到你的目标库。您可以链接多个库，比如在这个构建脚本中定义的库、预构建的第三方库或系统库。" class="headerlink" title="4. 指定库的库应该链接到你的目标库。您可以链接多个库，比如在这个构建脚本中定义的库、预构建的第三方库或系统库。"></a>4. 指定库的库应该链接到你的目标库。您可以链接多个库，比如在这个构建脚本中定义的库、预构建的第三方库或系统库。</h6><pre><code>target_link_libraries( hello-lib                 # 指定目标库中。与 add_library的库名称一定要相同
+)</code></pre><h6 id="4-导入头文件目录"><a href="#4-导入头文件目录" class="headerlink" title="4. 导入头文件目录"></a>4. 导入头文件目录</h6><pre><code>include_directories(src/main/jni/)</code></pre><h6 id="5-设置cppflags"><a href="#5-设置cppflags" class="headerlink" title="5. 设置cppflags"></a>5. 设置cppflags</h6><pre><code>set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -std=c++11 -fvisibility=hidden&quot;)</code></pre><h6 id="6-指定库的库应该链接到你的目标库。您可以链接多个库，比如在这个构建脚本中定义的库、预构建的第三方库或系统库。"><a href="#6-指定库的库应该链接到你的目标库。您可以链接多个库，比如在这个构建脚本中定义的库、预构建的第三方库或系统库。" class="headerlink" title="6 指定库的库应该链接到你的目标库。您可以链接多个库，比如在这个构建脚本中定义的库、预构建的第三方库或系统库。"></a>6 指定库的库应该链接到你的目标库。您可以链接多个库，比如在这个构建脚本中定义的库、预构建的第三方库或系统库。</h6><pre><code>target_link_libraries( hello-lib                 # 指定目标库中。与 add_library的库名称一定要相同
                    ${log-lib}                # 将目标库链接到日志库包含在NDK。
-)</code></pre><h6 id="5-如果需要生产多个SO文件的话，写法如下"><a href="#5-如果需要生产多个SO文件的话，写法如下" class="headerlink" title="5. 如果需要生产多个SO文件的话，写法如下"></a>5. 如果需要生产多个SO文件的话，写法如下</h6><pre><code>add_library( natave-lib                          # 设置库的名称。另一个so文件的名称
+)</code></pre><h6 id="7-如果需要生产多个SO文件的话，写法如下"><a href="#7-如果需要生产多个SO文件的话，写法如下" class="headerlink" title="7. 如果需要生产多个SO文件的话，写法如下"></a>7. 如果需要生产多个SO文件的话，写法如下</h6><pre><code>add_library( natave-lib                          # 设置库的名称。另一个so文件的名称
             SHARED                            # 将库设置为共享库。
             src/main/jni/nataveJni.cpp        # 提供一个源文件的相对路径
 )
 target_link_libraries(
             natave-lib                        # 指定目标库中。与 add_library的库名称一定要相同
             ${log-lib}                        # 将目标库链接到日志库包含在NDK。
-)</code></pre>
+)</code></pre><hr>
+
       
     </div>
     <footer class="article-footer">
